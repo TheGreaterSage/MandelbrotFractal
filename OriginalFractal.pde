@@ -7,6 +7,9 @@ public void setup(){
   }
   public void draw(){
     for(int x = 0; x < width; x++) {
+        for(int y = 0; y<height; y++) {
+            
+        }
     }
   }
   public void myFractal(int x, int y, int siz) {
