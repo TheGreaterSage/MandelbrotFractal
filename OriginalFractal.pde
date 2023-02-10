@@ -7,7 +7,7 @@ public void setup() {
   background(255);
 }
 //recursive escape-time algorithm based on maxiterations
-private int mandelbrot(Complex c) {
+private int mandelbrot(int c) {
 	int z = 0;
 	int n = 0;
 	while(abs(z)>=2 && n < maxiterations) {
@@ -29,18 +29,3 @@ public void draw() {
 public void myFractal(int x, int y, int siz) {
 }
 
-class Complex {
-    double real;   // the real part
-    double img;   // the imaginary part
-
-    public Complex(double real, double img) {
-        this.real = real;
-        this.img = img;
-    }
-
-    public Complex multi(Complex b) {
-        double real = this.real * b.real - this.img * b.img;
-        double img = this.real * b.img + this.img * b.real;
-        return new Complex(real, img);
-    }
-}
