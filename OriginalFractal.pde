@@ -7,12 +7,17 @@ public void setup() {
   background(255);
 }
 //recursive escape-time algorithm based on maxiterations
-private int mandelbrot(int c) {
+private int mandelbrot(int re, int im) {
 	int z = 0;
 	int n = 0;
-	while(abs(z)>=2 && n < maxiterations) {
-		z = z*z + c;
-		n++;
+	while(n < maxiterations) {
+		double aa = a * a; 
+        double bb = b * b; 
+        double im = 2.0 * re * im + imMin; 
+        double re = re*re - im*im + reMin; 
+        if (aa + bb > 16.0) {
+			break;
+		}
 	}
 	return n;
 }
