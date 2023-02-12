@@ -1,15 +1,13 @@
-int maxiterations = 150; //max iteratoins
-//setup coords for real and imaginary axes
+int maxiterations = 150; 
 double reMin = -2, reMax = 2;
 double imMin = -1, imMax = 1;
 public void setup() {
   size(500, 500);
   background(255);
 }
-//recursive escape-time algorithm based on maxiterations
-//Source: https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
 
-private int mandelbrot(Complex c) {
+
+int mandelbrot(Complex c) {
 	Complex z = new Complex(0, 0);
 	int n = 0;
 	while(z.abs() > 2 && n < maxiterations) {
