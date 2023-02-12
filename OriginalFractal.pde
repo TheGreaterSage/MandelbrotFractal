@@ -32,8 +32,7 @@ int mandelbrot(Complex c) {
   Complex z = new Complex(0, 0);
   int n = 0;
   while (z.abs() < 2 && n < maxiterations) {
-    Complex z_new = z.multi(z).add(c);
-    z = z_new;
+    z = z.multi(z).add(c);
     n++;
   }
   return n;
