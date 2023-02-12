@@ -5,7 +5,7 @@ float imMin = -1;
 float imMax = 1;
 
 void setup() {
-  size(800, 800);
+  size(500, 500);
 }
 
 void draw() {
