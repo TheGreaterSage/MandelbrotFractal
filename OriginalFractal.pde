@@ -10,18 +10,31 @@ public void setup() {
 //Source: https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
 
 private int mandelbrot(Complex c) {
-	Complex z = new
+	Complex z = new Complex(0, 0);
+	int n = 0;
+	while(z.abs() > 2 && n < maxiterations) {
+	z = (z.multi(z)).add(c);
+	n++;
+	return n;
 }
 //Used https://processing.org/reference/loadPixels_.html as reference guide, as well as Stackoverflow
-public void draw() {
+void draw() {
 	loadPixels();
   for (int x = 0; x < width; x++) {
     for (int y = 0; y<height; y++) {
-		
+		c = new Complex(reMin + (x/width) * (reMax-reMin), imMin + (y/width) * (imMax-imMin));
+		int m = mandelbrot(c);
+		if(m == maxiterations) {
+			pixels[x+y*width] = color(0);
+		}
+		else {
+			double coloring = 255 - int(m*255/maxiterations);
+        	pixels[x+y*width] = color(255*coloring);
+		}
     }
   }
   
-  pixels[x+y*width] = color(0);
+  updatePixels();
   
 }
 
