@@ -1,52 +1,55 @@
-int maxiterations = 150; 
-double reMin = -2, reMax = 2;
-double imMin = -1, imMax = 1;
-public void setup() {
-  size(500, 500);
-  background(255);
+int maxiterations = 100;
+float reMin = -2;
+float reMax = 1;
+float imMin = -1;
+float imMax = 1;
+
+void setup() {
+  size(800, 800);
 }
 
-
-int mandelbrot(Complex c) {
-	Complex z = new Complex(0, 0);
-	int n = 0;
-	while(z.abs() > 2 && n < maxiterations) {
-	z = (z.multi(z)).add(c);
-	n++;
-	return n;
-}
-//Used https://processing.org/reference/loadPixels_.html as reference guide, as well as Stackoverflow
 void draw() {
-	loadPixels();
+  loadPixels();
   for (int x = 0; x < width; x++) {
-    for (int y = 0; y<height; y++) {
-		c = new Complex(reMin + (x/width) * (reMax-reMin), imMin + (y/width) * (imMax-imMin));
-		int m = mandelbrot(c);
-		if(m == maxiterations) {
-			pixels[x+y*width] = color(0);
-		}
-		else {
-			double coloring = 255 - int(m*255/maxiterations);
-        	pixels[x+y*width] = color(255*coloring);
-		}
+    for (int y = 0; y < height; y++) {
+      //(value - start1) / (stop1 - start1) * (stop2 - start2) + start2
+      float a = map(x, 0, width, reMin, reMax);
+      float b = map(y, 0, height, imMin, imMax);
+      Complex c = new Complex(a, b);
+      int n = mandelbrot(c);
+      if (n == maxiterations) {
+        pixels[x+y*width] = color(0);
+      } else {
+        float brightness = map(n, 0, maxiterations, 0, 1);
+        pixels[x+y*width] = color(255*brightness);
+      }
     }
   }
-  
   updatePixels();
-  
+}
+
+int mandelbrot(Complex c) {
+  Complex z = new Complex(0, 0);
+  int n = 0;
+  while (z.abs() < 2 && n < maxiterations) {
+    Complex z_new = z.multi(z).add(c);
+    z = z_new;
+    n++;
+  }
+  return n;
 }
 
 class Complex {
-  double real;
-  double imag;
+  float real;
+  float imag;
 
-  Complex(double real, double imag) {
+  Complex(float real, float imag) {
     this.real = real;
     this.imag = imag;
   }
 
-  double abs() {
-    return Math.sqrt(real*real + imag*imag);
+  float abs() {
+    return sqrt(real*real + imag*imag);
   }
 
   Complex add(Complex b) {
@@ -54,8 +57,8 @@ class Complex {
   }
 
   Complex multi(Complex b) {
-    double real = this.real * b.real - this.imag * b.imag;
-    double imag = this.real * b.imag + this.imag * b.real;
+    float real = this.real*b.real - this.imag*b.imag;
+    float imag = this.real*b.imag + this.imag*b.real;
     return new Complex(real, imag);
   }
 }
