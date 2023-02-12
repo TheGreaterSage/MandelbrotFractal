@@ -3,24 +3,16 @@ int maxiterations = 150; //max iteratoins
 double reMin = -2, reMax = 2;
 double imMin = -1, imMax = 1;
 public void setup() {
-  size(800, 800);
+  size(500, 500);
   background(255);
 }
 //recursive escape-time algorithm based on maxiterations
-private int mandelbrot(int re, int im) {
-	int z = 0;
-	int n = 0;
-	while(n < maxiterations) {
-		double aa = a * a; 
-        double bb = b * b; 
-        double im = 2.0 * re * im + imMin; 
-        double re = re*re - im*im + reMin; 
-        if (aa + bb > 16.0) {
-			break;
-		}
-	}
-	return n;
+//Source: https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
+
+private int mandelbrot(Complex c) {
+	Complex z = new
 }
+//Used https://processing.org/reference/loadPixels_.html as reference guide, as well as Stackoverflow
 public void draw() {
 	loadPixels();
   for (int x = 0; x < width; x++) {
@@ -28,9 +20,31 @@ public void draw() {
 		
     }
   }
-  pixels[i+j*width] = 
+  
+  pixels[x+y*width] = color(0);
+  
 }
 
-public void myFractal(int x, int y, int siz) {
-}
+class Complex {
+  double real;
+  double imag;
 
+  Complex(double real, double imag) {
+    this.real = real;
+    this.imag = imag;
+  }
+
+  double abs() {
+    return Math.sqrt(real*real + imag*imag);
+  }
+
+  Complex add(Complex b) {
+    return new Complex(real + b.real, imag + b.imag);
+  }
+
+  Complex multi(Complex b) {
+    double real = this.real * b.real - this.imag * b.imag;
+    double imag = this.real * b.imag + this.imag * b.real;
+    return new Complex(real, imag);
+  }
+}
