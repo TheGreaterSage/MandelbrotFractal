@@ -1,4 +1,4 @@
-int maxiterations = 100;
+int maxiterations = 256;
 float reMin = -2;
 float reMax = 1;
 float imMin = -1;
@@ -20,8 +20,8 @@ void draw() {
       if (n == maxiterations) {
         pixels[x+y*width] = color(0);
       } else {
-        float brightness = map(n, 0, maxiterations, 0, 1);
-        pixels[x+y*width] = color(255*brightness);
+        float coloring = map(n, 0, maxiterations, 0, 1);
+        pixels[x+y*width] = color(255*coloring);
       }
     }
   }
@@ -48,7 +48,7 @@ class Complex {
   }
 
   float abs() {
-    return sqrt(real*real + imag*imag);
+    return sqrt(real * real + imag * imag);
   }
 
   Complex add(Complex b) {
@@ -56,8 +56,8 @@ class Complex {
   }
 
   Complex multi(Complex b) {
-    float real = this.real*b.real - this.imag*b.imag;
-    float imag = this.real*b.imag + this.imag*b.real;
+    float real = this.real * b.real - this.imag * b.imag;
+    float imag = this.real * b.imag + this.imag * b.real;
     return new Complex(real, imag);
   }
 }
