@@ -12,7 +12,6 @@ void draw() {
   loadPixels();
   for (int x = 0; x < width; x++) {
     for (int y = 0; y < height; y++) {
-      //(value - start1) / (stop1 - start1) * (stop2 - start2) + start2
       float a = map(x, 0, width, reMin, reMax);
       float b = map(y, 0, height, imMin, imMax);
       Complex c = new Complex(a, b);
